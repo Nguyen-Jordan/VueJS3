@@ -28,3 +28,7 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# images
+src/assets/static/*
+src/assets/img/*
