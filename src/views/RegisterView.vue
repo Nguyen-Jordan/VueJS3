@@ -1,18 +1,32 @@
 <script setup>
 import BaseInput from "@/components/BaseInput.vue";
 import {reactive} from "vue";
+import axios from "axios";
 
 const form = reactive({
   name: '',
   email: '',
   password: '',
 })
+
+const submit = async () => {
+  console.log(form);
+  await axios.get('/sanctum/csrf-cookie');
+  
+  await axios.post('/register', form)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
 </script>
 
 <template>
   <div class="page page-center">
     <div class="container-tight py-4">
-      <form class="card card-md" action="." method="post">
+      <form @submit.prevent="submit" class="card card-md" action="/register" method="post">
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Créer un nouveau compte</h2>
           
