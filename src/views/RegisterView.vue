@@ -5,9 +5,6 @@
 <template>
   <div class="page page-center">
     <div class="container-tight py-4">
-      <div class="text-center mb-4">
-        <a href="." class="navbar-brand navbar-brand-autodark"><img src="@/assets/static/logo.png" height="36" alt=""></a>
-      </div>
       <form class="card card-md" action="." method="post">
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Créer un nouveau compte</h2>
@@ -31,12 +28,12 @@
             </div>
           </div>
           <div class="form-footer">
-            <button type="submit" class="btn btn-primary w-100">Créer un nouveau compte</button>
+            <button type="submit" class="btn btn-primary w-100">Créer mon compte</button>
           </div>
         </div>
       </form>
       <div class="text-center text-muted mt-3">
-        Vous avez déjà un compte? <a href="" tabindex="-1">connectez-vous</a>
+        Vous avez déjà un compte? <router-link to="/login">connectez-vous</router-link>
       </div>
     </div>
   </div>
