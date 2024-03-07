@@ -29,13 +29,7 @@ export const useUserStore = defineStore({
             await axios.post('/register', props).then((response) => {
                 console.log(response);
                 if (response.status === 201) {
-                    const user = response.data.user;
-                    const token = response.data.token;
-                    localStorage.setItem('user', JSON.stringify(user))
-                    localStorage.setItem('token' , token)
-                    axios.defaults.headers.common['Authorization'] = token;
-                    this.loggedIn = true;
-                    this.user = user;
+                    this.loginUser(response);
                     this.$router.push({name: 'dashboard'});
                 }
             })
@@ -56,13 +50,7 @@ export const useUserStore = defineStore({
             await axios.post('/login', props).then((response) => {
                 console.log(response);
                 if (response.status === 200) {
-                    const user = response.data.user;
-                    const token = response.data.token;
-                    localStorage.setItem('user', JSON.stringify(user) );
-                    localStorage.setItem('token', token);
-                    axios.defaults.headers.common['Authorization'] = token;
-                    this.loggedIn = true;
-                    this.user = user;
+                    this.loginUser(response);
                     this.$router.push({name: 'dashboard'});
                 }
             })
@@ -95,6 +83,16 @@ export const useUserStore = defineStore({
                 .catch(error => {
                 console.log(error);
             })
+        },
+
+        loginUser(response) {
+            const user = response.data.user;
+            const token = response.data.token;
+            localStorage.setItem('user', JSON.stringify(user) );
+            localStorage.setItem('token', token);
+            axios.defaults.headers.common['Authorization'] = token;
+            this.loggedIn = true;
+            this.user = user;
         }
     }
 })
