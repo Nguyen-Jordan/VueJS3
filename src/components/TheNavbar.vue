@@ -39,6 +39,19 @@ const user = useUserStore();
                     </span>
               </a>
             </li>
+            <li v-if="! user.loggedIn" class="nav-item">
+              <a class="nav-link" href="/register">
+                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24"
+     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+     stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path
+  d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M16 19h6"/><path d="M19 16v6"/><path
+  d="M6 21v-2a4 4 0 0 1 4 -4h4"/></svg>                    </span>
+                <span class="nav-link-title">
+                      Créer un compte
+                    </span>
+              </a>
+            </li>
             <li v-if="user.loggedIn" class="nav-item">
               <a class="nav-link" href="/dashboard">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
@@ -54,16 +67,18 @@ const user = useUserStore();
                     </span>
               </a>
             </li>
-            <li v-if="! user.loggedIn" vclass="nav-item">
-              <a class="nav-link" href="/register">
+            <li v-if="user.loggedIn" @click.prevent="user.logout()" class="nav-item">
+              <a class="nav-link" href=".">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24"
-     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-     stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path
-  d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M16 19h6"/><path d="M19 16v6"/><path
-  d="M6 21v-2a4 4 0 0 1 4 -4h4"/></svg>                    </span>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dashboard" width="24"
+                           height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                           stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"
+                                                                                fill="none"/><path
+                        d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M13.45 11.55l2.05 -2.05"/><path
+                        d="M6.4 20a9 9 0 1 1 11.2 0z"/></svg>
+                    </span>
                 <span class="nav-link-title">
-                      Créer un compte
+                      Logout
                     </span>
               </a>
             </li>

@@ -16,7 +16,7 @@ const form = reactive({
 const submit = () => {
   user.register(form);
   // rediriger
-  router.push('/dashboard')
+/*  router.push('/dashboard')*/
 }
 
 </script>

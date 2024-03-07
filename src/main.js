@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
@@ -15,7 +15,9 @@ axios.defaults.baseURL = 'https://simpledev.one/api'
 
 const app = createApp(App)
 
-app.use(createPinia())
+app.use(createPinia().use(({store}) => {
+    store.$router = markRaw(router)
+}))
 app.use(router)
 
 app.mount('#app')

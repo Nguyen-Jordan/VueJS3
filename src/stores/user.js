@@ -28,7 +28,7 @@ export const useUserStore = defineStore({
             await this.csrf();
             await axios.post('/register', props).then((response) => {
                 console.log(response);
-                if (response.status == 201) {
+                if (response.status === 201) {
                     const user = response.data.user;
                     const token = response.data.token;
                     localStorage.setItem('user', JSON.stringify(user))
@@ -36,16 +36,64 @@ export const useUserStore = defineStore({
                     axios.defaults.headers.common['Authorization'] = token;
                     this.loggedIn = true;
                     this.user = user;
+                    this.$router.push({name: 'dashboard'});
                 }
             })
             .catch(error => {
                 console.log(error);
-                if (error.response.status == 422) {
+                if (error.response.status === 422) {
                     for (const  key in error.response.data.errors) {
                         this.errors.push(error.response.data.errors[key][0] + ' ');
                     }
                     console.log(this.errors);
                 }
+            })
+        },
+
+        async login (props) {
+            this.errors = [];
+            await this.csrf();
+            await axios.post('/login', props).then((response) => {
+                console.log(response);
+                if (response.status === 200) {
+                    const user = response.data.user;
+                    const token = response.data.token;
+                    localStorage.setItem('user', JSON.stringify(user) );
+                    localStorage.setItem('token', token);
+                    axios.defaults.headers.common['Authorization'] = token;
+                    this.loggedIn = true;
+                    this.user = user;
+                    this.$router.push({name: 'dashboard'});
+                }
+            })
+                .catch(error => {
+                    console.log(error);
+                    if (error.response.status === 422) {
+                        for (const  key in error.response.data.errors) {
+                            this.errors.push(error.response.data.errors[key][0] + ' ');
+                        }
+                        console.log(this.errors);
+                    }
+                    if (error.response.status === 401) {
+                        this.errors.push(error.response.data.error);
+                    }
+                })
+        },
+
+        async logout () {
+            await this.csrf();
+            await axios.post('/logout/'+this.getUser.id).then((response) => {
+                console.log(response);
+                if (response.status == 200) {
+                    this.token = null;
+                    this.loggedIn = false;
+                    localStorage.clear();
+                    this.$reset();
+                    this.$router.push({name: 'login'})
+                }
+            })
+                .catch(error => {
+                console.log(error);
             })
         }
     }
