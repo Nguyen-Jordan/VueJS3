@@ -57,6 +57,16 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+router.beforeEach((to, from, next) => {
+  const user = useUserStore();
+  if (to.meta.requiresGuest && user.loggedIn){
+    next({name: 'dashboard'})
+  }
+  else {
+    next()
+  }
+})
+
 // empêcher d'accéder au dashboard si on n'est pas connecté
 router.beforeEach((to, from, next) => {
   const user = useUserStore();
