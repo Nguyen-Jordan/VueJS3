@@ -28,7 +28,11 @@ const results = reactive({
             <h2 class="page-title">
               Gallery
             </h2>
-            <div class="text-muted mt-1">1-12 of 241 photos</div>
+            <div
+              v-if="posts_count"
+              class="text-muted mt-1">
+              Total : {{ posts_count }} photos
+            </div>
           </div>
           <!-- Page title actions -->
           <div class="col-12 col-md-auto ms-auto d-print-none">
