@@ -1,5 +1,14 @@
 <script setup>
+import { ref, reactive, onMounted } from "vue";
+import { usePostStore } from "@/stores/post.js";
+import { storeToRefs } from "pinia";
 
+const store = usePostStore();
+
+const { post, loading, error, posts_count } = storeToRefs(store);
+const { getPosts } = store;
+
+getPosts();
 </script>
 
 <template>
