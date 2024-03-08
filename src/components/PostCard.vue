@@ -12,15 +12,15 @@ const store = usePostStore();
 
 <template>
   <div class="card card-sm">
-    <a href="#" class="d-block">
+    <RouterLink :to="{ name: 'post.show', params: {slug: post.slug}}" class="d-block">
       <img :data-src="post.photo.thumbnail_url" :alt="post.title" async="decoding" class="card-img-top lazyload">
-    </a>
+    </RouterLink>
     <div class="card-body">
       <div class="d-flex align-items-center">
-                  <span v-if="post.user?.avatar?.thumbnail_url"
-                        class="avatar me-3 rounded"
-                        :style="{ backgroundImage: 'url(' + post.user.avatar.thumbnail_url+ ')' }">
-                  </span>
+          <span v-if="post.user?.avatar?.thumbnail_url"
+                class="avatar me-3 rounded"
+                :style="{ backgroundImage: 'url(' + post.user.avatar.thumbnail_url+ ')' }">
+          </span>
         <div>
           <div>{{ post.user.name }}</div>
           <div class="text-muted">
