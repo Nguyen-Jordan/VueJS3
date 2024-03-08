@@ -2,6 +2,7 @@
 import BaseInput from "@/components/BaseInput.vue";
 import {reactive} from "vue";
 import {useUserStore} from "@/stores/user.js";
+import ErrorMessage from "@/components/ErrorMessage.vue";
 
 const user = useUserStore();
 
@@ -23,9 +24,7 @@ const submit = () => {
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Me connecter</h2>
           
-          <div v-if="user.getErrors.length" class="alert alert-danger" role="alert">
-            <p v-for="error in user.getErrors">{{ error }}</p>
-          </div>
+          <ErrorMessage v-if="user.getErrors.length" :errors="user.getErrors" />
           
           <BaseInput
             v-model="form.email" label="Email" placeholder="exemple@email.com" type="email"

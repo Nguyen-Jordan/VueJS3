@@ -4,6 +4,7 @@ import {reactive} from "vue";
 import axios from "axios";
 import { useUserStore } from '@/stores/user.js'
 import { useRouter } from "vue-router";
+import ErrorMessage from "@/components/ErrorMessage.vue";
 
 const user = useUserStore();
 
@@ -28,9 +29,7 @@ const submit = () => {
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Créer un nouveau compte</h2>
           
-          <div v-if="user.getErrors.length" class="alert alert-danger" role="alert">
-            <p v-for="error in user.getErrors">{{ error }}</p>
-          </div>
+          <ErrorMessage v-if="user.getErrors.length" :errors="user.getErrors" />
           
           <BaseInput
             v-model="form.name" label="Nom" placeholder="Votre nom" type="text"
