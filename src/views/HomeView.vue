@@ -12,6 +12,10 @@ const {posts, loading, error, posts_count} = storeToRefs(store);
 const {getPosts} = store;
 
 getPosts();
+
+const results = reactive({
+  resultsToShow: 9,
+})
 </script>
 
 <template>
@@ -67,41 +71,19 @@ getPosts();
           
           <div
             v-if="posts.length"
-            v-for="post in posts" :key="post.id"
+            v-for="post in posts.slice(0, results.resultsToShow)" :key="post.id"
             class="col-sm-6 col-lg-4">
             
             <PostCard :post="post" :id="post.id"/>
           </div>
         </div>
-        <div class="d-flex">
-          <ul class="pagination ms-auto">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <polyline points="15 6 9 12 15 18"/>
-                </svg>
-                prev
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <polyline points="9 6 15 12 9 18"/>
-                </svg>
-              </a>
-            </li>
-          </ul>
+        <div class="d-flex mt-4 page-center">
+          <button
+            v-if="results.resultsToShow < posts.length"
+            @click="results.resultsToShow += 3"
+            class="btn btn-primary">
+            Afficher plus
+          </button>
         </div>
       </div>
     </div>
