@@ -1,7 +1,9 @@
 <script setup>
+import moment from 'moment';
 import { ref, reactive, onMounted } from "vue";
 import { usePostStore } from "@/stores/post.js";
 import { storeToRefs } from "pinia";
+
 
 const store = usePostStore();
 
@@ -72,10 +74,15 @@ getPosts();
               </a>
               <div class="card-body">
                 <div class="d-flex align-items-center">
-                  <span class="avatar me-3 rounded" style="background-image: url(@/assets/static/avatars/000m.jpg)"></span>
+                  <span v-if="post.user?.avatar?.thumbnail_url"
+                    class="avatar me-3 rounded"
+                    :style="{ backgroundImage: 'url('+ post.user.avatar.thumbnail_url+ ')' }">
+                  </span>
                   <div>
                     <div>{{ post.user.name }}</div>
-                    <div class="text-muted">3 days ago</div>
+                    <div class="text-muted">
+                      {{ moment(post.created_at).fromNow() }}
+                    </div>
                     <div>Catégorie : {{ post.category.name }}</div>
                   </div>
                   <div class="ms-auto">
