@@ -59,8 +59,14 @@ const router = createRouter({
   ]
 })
 
+// titre de la page plus titre du post s'il existe
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
+  let documentTitle = to.meta.title;
+  if (to.params.title) {
+    documentTitle += ' - ' + to.params.title;
+  }
+
+  document.title = documentTitle
 
   next()
 })

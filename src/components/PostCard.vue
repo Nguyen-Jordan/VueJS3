@@ -12,7 +12,7 @@ const store = usePostStore();
 
 <template>
   <div class="card card-sm">
-    <RouterLink :to="{ name: 'post.show', params: {slug: post.slug}}" class="d-block">
+    <RouterLink :to="{ name: 'post.show', params: {slug: post.slug, title: post.title}}" class="d-block">
       <img :data-src="post.photo.thumbnail_url" :alt="post.title" async="decoding" class="card-img-top lazyload">
     </RouterLink>
     <div class="card-body">
