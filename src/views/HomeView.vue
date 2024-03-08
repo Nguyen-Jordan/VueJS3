@@ -13,10 +13,27 @@ const {getPosts} = store;
 
 getPosts();
 
+// nombre affichage par default
 const results = reactive({
   resultsToShow: 9,
 })
 
+// reset le nombre
+const resetResults = () => {
+  results.resultsToShow = 9;
+}
+
+// filtres
+const sort = ref(null);
+
+const options = ref([
+{text: 'Les plus recent', value: 'newest'},
+{text: 'Les plus ancien', value: 'oldest'},
+{text: 'Likes', value: 'likes'},
+{text: 'Vues', value: 'views'},
+])
+
+// titre de la page
 const title = ref('')
 
 onMounted(() => {
@@ -45,30 +62,15 @@ onMounted(() => {
           <!-- Page title actions -->
           <div class="col-12 col-md-auto ms-auto d-print-none">
             <div class="d-flex">
-              <div class="me-3">
-                <div class="input-icon">
-                  <input type="text" value="" class="form-control" placeholder="Search…">
-                  <span class="input-icon-addon">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                             stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10"
-                                                                                                                cy="10"
-                                                                                                                r="7"/><line
-                          x1="21" y1="21" x2="15" y2="15"/></svg>
-                      </span>
-                </div>
+              
+              <div>
+                <select v-model="sort" class="form-select" @change="getPosts(sort), resetResults()">
+                  <option v-for="option in options" :value="option.value">
+                    {{ option.text }}
+                  </option>
+                </select>
               </div>
-              <a href="#" class="btn btn-primary">
-                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <line x1="12" y1="5" x2="12" y2="19"/>
-                  <line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
-                Add event
-              </a>
+              
             </div>
           </div>
         </div>

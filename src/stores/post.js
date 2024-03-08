@@ -25,9 +25,9 @@ export const usePostStore = defineStore({
             await axios.get('/sanctum/csrf-cookie');
         },
 
-        async getPosts() {
+        async getPosts( sort = null) {
             this.loading = true;
-            await axios.get('/posts').then((response) => {
+            await axios.get('/posts?sort='+sort).then((response) => {
                 this.loading = false;
                 console.log(response);
                 if (response.status === 200) {
