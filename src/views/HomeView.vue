@@ -16,6 +16,14 @@ getPosts();
 const results = reactive({
   resultsToShow: 9,
 })
+
+const title = ref('')
+
+onMounted(() => {
+  document.addEventListener('DOMContentLoaded', () => {
+    title.value = document.querySelector('head title').innerHTML;
+  })
+})
 </script>
 
 <template>
@@ -26,7 +34,7 @@ const results = reactive({
         <div class="row g-2 align-items-center">
           <div class="col">
             <h2 class="page-title">
-              Gallery
+              {{ title }}
             </h2>
             <div
               v-if="posts_count"
