@@ -72,7 +72,7 @@ export const useUserStore = defineStore({
             await this.csrf();
             await axios.post('/logout/'+this.getUser.id).then((response) => {
                 console.log(response);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     this.token = null;
                     this.loggedIn = false;
                     localStorage.clear();
