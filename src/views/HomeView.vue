@@ -4,6 +4,7 @@ import {ref, reactive, onMounted} from "vue";
 import {usePostStore} from "@/stores/post.js";
 import {storeToRefs} from "pinia";
 import PostCard from "@/components/PostCard.vue";
+import 'lazysizes';
 
 const store = usePostStore();
 

@@ -13,13 +13,13 @@ const store = usePostStore();
 <template>
   <div class="card card-sm">
     <a href="#" class="d-block">
-      <img :src="post.photo.thumbnail_url" :alt="post.title" class="card-img-top">
+      <img :data-src="post.photo.thumbnail_url" :alt="post.title" async="decoding" class="card-img-top lazyload">
     </a>
     <div class="card-body">
       <div class="d-flex align-items-center">
                   <span v-if="post.user?.avatar?.thumbnail_url"
                         class="avatar me-3 rounded"
-                        :style="{ backgroundImage: 'url('+ post.user.avatar.thumbnail_url+ ')' }">
+                        :style="{ backgroundImage: 'url(' + post.user.avatar.thumbnail_url+ ')' }">
                   </span>
         <div>
           <div>{{ post.user.name }}</div>
@@ -58,5 +58,12 @@ const store = usePostStore();
 </template>
 
 <style scoped>
-
+.lazyload,
+.lazyloading {
+  opacity: 0;
+}
+.lazyloaded {
+  opacity: 1;
+  transition: opacity 2000ms;
+}
 </style>
