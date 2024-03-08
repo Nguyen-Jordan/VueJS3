@@ -18,6 +18,7 @@ const router = createRouter({
       component: () => import('../views/RegisterView.vue'),
       meta: {
         title: 'Inscription',
+        requiresGuest: true,
       }
     },
     {
@@ -26,6 +27,7 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue'),
       meta: {
         title: 'Connexion',
+        requiresGuest: true,
       }
     },
     {
@@ -34,6 +36,7 @@ const router = createRouter({
       component: () => import('../views/DashboardView.vue'),
       meta: {
         title: 'Bienvenue à votre Dashboard',
+        requiresAuth: true,
       }
     },
     {
